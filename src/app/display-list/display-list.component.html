@@ -1,0 +1,121 @@
+<!-- <a href="#" class="btn btn-primary m-5">Create New Invoice</a> -->
+
+<ng-container *ngFor="let item of UserPermission">
+    <ng-container *ngIf="item.menu=='Invoice'&&item.add==1">
+        <button class="btn btn-primary m-5" (click)="NavigateToAdd()">Create New Invoice</button>
+    </ng-container>
+</ng-container>
+
+<div class="ms-2">
+    <table class="table table-hover">
+        <thead>
+
+            <tr>
+                <th *ngIf="RoleID==1">
+                    UserName
+                </th>
+                <th>
+                    InvoiceNo
+                </th>
+                <th>
+                    Customer
+                </th>
+                <th style="width: 80px;">
+                    GSTNo
+                </th>
+                <th>
+                    BillDate
+                </th>
+                <th>
+                    DueDate
+                </th>
+                <th>
+                    RemainingDays
+                </th>
+                <th>
+                    Totalitem
+                </th>
+                <th>
+                    TotalAmount
+                </th>
+                <th>
+                    PaidAmount
+                </th>
+                <th>
+                    RemainingAmount
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let item of InvoiceArray">
+                <td *ngIf="RoleID==1">
+                    {{item.userName}}
+
+                </td>
+                <td>
+                    {{item.invoiceNo}}
+
+                </td>
+                <td>
+                    {{item.customerName}}
+
+                </td>
+                <td style="width: 80px;"> 
+                    {{item.gstNo}}
+                </td>
+                <td>
+                    {{item.billDate}}
+                </td>
+                <td>
+                    {{item.dueDate}}
+                </td>
+                <td>
+                    {{item.remainingDays}}
+                </td>
+                <td>
+                    {{item.totalitem}}
+                </td>
+                <td>
+                    {{item.totalAmount}}
+                </td>
+                <td>
+                    {{item.paidAmount}}
+                </td>
+                <td>
+                    {{item.remainingAmount}}
+                </td>
+
+                <td>
+                    <!-- <a href="#" class="btn btn-success me-4">Edit</a> -->
+                    <ng-container *ngFor="let item2 of UserPermission">
+                        <button class="btn btn-success me-1" (click)="GoToEdit(item.invoiceID)"
+                            *ngIf="item2.menu=='Invoice'&&item2.edit==1">Edit</button>
+                        <!-- </ng-container> -->
+                        <!-- [routerLink]="['/EditInvoice', item.invoiceID]" -->
+                    </ng-container>
+                    <!-- <a href="#"class="btn btn-danger">Delete</a> -->
+                    <ng-container *ngFor="let item2 of UserPermission">
+                        <ng-container *ngIf="item.paidAmount==0">
+
+                            <button class="btn btn-danger me-1" (click)="DeleteInvoice(item.invoiceID)"
+                                *ngIf="item2.menu=='Invoice'&&item2.delete==1">Delete</button>
+                        </ng-container>
+                    </ng-container>
+
+                    <button class="btn btn-primary" *ngIf="item.remainingAmount!=0"
+                        (click)="GoToPayment(item.customerName,item.remainingAmount)">PayNow</button>
+                    <button class="btn btn-secondary" *ngIf="item.remainingAmount==0" disabled>Paid</button>
+                    <!-- <button class="btn btn-primary" (click)="GoToPayment(item.invoiceID)">PayNow</button> -->
+
+
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+</div>

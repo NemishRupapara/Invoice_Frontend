@@ -1,0 +1,82 @@
+<table class="table m-5">
+    <thead>
+    <tr>
+        <th>
+            Item Name
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let item of ItemArray">
+        <td>
+            {{item.item_Name}}
+        </td>
+<td>
+    <ng-container *ngFor="let item2 of UserPermission">
+
+    <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="UpdateItemDetail(item.item_Name,item.id)" *ngIf="item2.menu=='Item'&&item2.edit==1">Edit</a>
+</ng-container>
+
+    <ng-container *ngFor="let item2 of UserPermission">
+
+    <a class="btn btn-danger ms-2" (click)="DeleteItemName(item.id)" *ngIf="item2.menu=='Item'&&item2.delete==1">Delete</a>
+</ng-container>
+</td>
+    </tr>
+
+</tbody>
+</table>
+
+<div class="modal fade" #exampleModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Item Name</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="Customername" class="form-label">Item Name:</label>
+                    <input type="text" class="form-control" id="Item_Name" name="Item_Name"  [(ngModel)]="ItemNames">
+                    <!-- <input type="hidden" id="ItemID" name="ID" /> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="Close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="EditItemName()" >Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex  align-items-center ms-5 mb-5">
+    <ng-container *ngFor="let item2 of UserPermission">
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" *ngIf="item2.menu=='Item'&&item2.add==1">Add Item</button>
+    </ng-container>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add new Item</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="Customername" class="form-label">Item Name:</label>
+                    <input type="text" class="form-control" name="Item_Name" [(ngModel)]="NewItemName">
+                    <input type="hidden" name="ID" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="Close2" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="AddItemName()" >Add</button>
+            </div>
+        </div>
+    </div>
+</div>

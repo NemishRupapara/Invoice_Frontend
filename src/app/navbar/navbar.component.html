@@ -1,0 +1,95 @@
+<nav class="navbar navbar-expand-lg bg-light mt-0">
+    <div class="container-fluid">
+        <!-- <a class="navbar-brand" href="#" dis>Invoice</a> -->
+        <div class="navbar-brand">Invoice</div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+
+
+                <ng-container *ngFor="let item of UserPermission">
+
+                    <li class="nav-item" *ngIf="item.menu=='Invoice'&&item.view==1">
+                        <button class="nav-link active" [routerLink]="['/DisplayInvoiceList']">InvoiceList</button>
+
+                    </li>
+                </ng-container>
+
+                <ng-container *ngFor="let item of UserPermission">
+
+                    <li class="nav-item" *ngIf="item.menu == 'User'&&item.view==1">
+                        <button class="nav-link active" [routerLink]="['/UserMethod']">User</button>
+
+                    </li>
+                </ng-container>
+                <ng-container *ngFor="let item of UserPermission">
+
+                    <li class="nav-item" *ngIf="item.menu=='Role'&&item.view==1">
+                        <button class="nav-link active" [routerLink]="['/RoleMethod']">Role</button>
+
+                    </li>
+                </ng-container>
+                <ng-container *ngFor="let item of UserPermission">
+
+                    <li class="nav-item" *ngIf="item.menu=='Customer'&&item.view==1">
+                        <button class="nav-link active" [routerLink]="['/CustomerMethod']">Customer</button>
+
+                    </li>
+                </ng-container>
+                <ng-container *ngFor="let item of UserPermission">
+
+
+                    <li class="nav-item" *ngIf="item.menu=='Item'&&item.view==1">
+                        <button class="nav-link active" [routerLink]="['/ItemMethod']">Item</button>
+
+                    </li>
+                </ng-container>
+
+                <ng-container *ngFor="let item of UserPermission">
+
+                    <li class="nav-item" *ngIf="item.menu=='PaymentMode'&&item.view==1">
+                        <button class="nav-link active" [routerLink]="['/PaymentModeMethod']">PaymentMode</button>
+
+                    </li>
+                </ng-container>
+
+                <ng-container *ngFor="let item of UserPermission">
+
+                    <li class="nav-item" *ngIf="item.menu=='Menu'&&item.view==1">
+                        <button class="nav-link active" [routerLink]="['/MenuMethod']">Menu</button>
+
+                    </li>
+                </ng-container>
+
+                <li class="nav-item" *ngIf="RoleID==1">
+                    <button class="nav-link active" [routerLink]="['/RolePermission']">RolePermission</button>
+
+                </li>
+                <ng-container *ngFor="let item of UserPermission">
+
+                    <li class="nav-item" *ngIf="item.menu=='Payment'&&item.view==1">
+                        <button class="nav-link active" [routerLink]="['/Payment']">Payment</button>
+
+                    </li>
+                </ng-container>
+                <ng-container *ngFor="let item of UserPermission">
+
+                    <li class="nav-item" *ngIf="item.menu=='PaymentHistory'&&item.view==1">
+                        <button class="nav-link active" [routerLink]="['/PaymentHistory']">PaymentHistory</button>
+
+                    </li>
+                </ng-container>
+
+                <li class="nav-item" *ngIf="IsLoggedIn">
+                    <button class="nav-link active" (click)="Logout()">Logout</button>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<router-outlet></router-outlet>

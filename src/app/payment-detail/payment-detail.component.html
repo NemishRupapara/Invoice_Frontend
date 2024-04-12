@@ -1,0 +1,164 @@
+<div class="container div1">
+  <div>
+    <h1 class="ps-2">Payment</h1>
+    <div class="row">
+      <div class="flex flex-wrap col-md-6">
+        <span class="p-float-label mt-5">
+          <label htmlFor="customername">Customer Name:</label>
+          <select class="form-select form-select-md" aria-label=".form-select-sm example" [(ngModel)]="CustomerNamee"
+            id="CustName" (change)="GetInvoiceListByCustomer($event)">
+            <option value="0" selected>Select Customer</option>
+            <option *ngFor="let customer of CustomerArray">
+              {{ customer.customername }}
+            </option>
+          </select>
+        </span>
+        <span class="mt-5">
+          <label htmlFor="invoiceno">Payment Mode</label>
+          <!-- <input type="number" class="form-control" name="InvoiceNo"/> -->
+          <select class="form-select form-select-md" aria-label=".form-select-sm example" [(ngModel)]="PaymentMode"
+            (change)="changedisabled()">
+            <option value="0" selected>Select Payment mode</option>
+            <option *ngFor="let item of PaymentModeArray">
+              {{ item.paymentMode }}
+            </option>
+          </select>
+        </span>
+        <span class="p-float-label mt-5">
+          <label htmlFor="igstno">Reference No:</label>
+          <input type="text" class="form-control" name="GSTNo" [(ngModel)]="ReferenceNo" />
+        </span>
+        <span class="p-float-label mt-5">
+          <label htmlFor="igstno">Amount</label>
+          <input type="number" class="form-control" [(ngModel)]="UserAmountInput"
+            (input)="calculateTotalSelectedAmounts(); UpdateRemainingInput()" />
+        </span>
+      </div>
+
+      <div class="flex flex-wrap col-md-6">
+        <div>
+          <div class="flex justify-content-center">
+            <span>PaymentDate:</span>
+            <input type="date" id="BillDate" name="BillDate" class="form-control" [(ngModel)]="PaymentDate"
+              [disabled]="disableCheque" [min]="minDate" />
+          </div>
+          <div class="mt-1">
+            <div class="flex justify-content-center">
+              <span>Cheque Date:</span>
+              <input type="date" id="DueDate" name="DueDate" class="form-control" [(ngModel)]="ChequeDate"
+                [disabled]="disableCheque" [min]="minDate" />
+            </div>
+            <div class="">
+              <label>BankName</label>
+              <input type="text" id="RemainingDays" name="RemainingDays" class="form-control" [min]="0"
+                [(ngModel)]="BankName" [disabled]="disableCheque" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <input type="hidden" name="Totalitem" value="" />
+
+  <!-- <div>
+        <div style="display:inline-flex;" class="mt-5">
+            <label class="me-3">ItemName :- </label>
+            <select class="form-select form-select-md" aria-label=".form-select-sm example" id="ItemName" style="width: 100px">
+                <option>Select Item</option>
+            </select>
+            <label class="me-3">Quantity :-</label>
+            <input type="number" name="Quantity" class="form-control quantity me-4" style="width: 100px"/>
+            <label class="me-3">Rate :-</label>
+            <input type="number" name="Rate" class="form-control rate me-4" style="width: 190px"/>
+            <label class="me-3">Amount :-</label>
+            <input type="number" name="Amount" class="form-control amount me-4" style="width: 190px"/>
+        </div>
+        <button id="addNew" class="btn btn-primary mb-2">Add New</button>
+        <button id="updateItem" class="btn btn-primary mb-2">Update</button>
+    </div> -->
+
+  <table class="table table-hover mt-5">
+    <thead>
+      <tr>
+        <th>Select</th>
+        <th>InvoiceNo</th>
+        <th>IssueDate</th>
+        <th>TotalAmount</th>
+        <th>PaidAmount</th>
+        <th>RemainingAmount</th>
+        <th>Pay</th>
+        <th>AmountLeft</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of CustomersInvoiceList; let i = index">
+        <ng-container *ngIf="item.invoiceNo != null">
+          <td>
+            <input type="checkbox" (change)="onCheckboxChange($event, i)" [checked]="item.isSelected" />
+          </td>
+          <td>{{ item.invoiceNo }}</td>
+          <td>{{ item.billDate }}</td>
+          <td>{{ item.totalAmount }}</td>
+          <td>{{ item.paidAmount }}</td>
+          <td>{{ item.remainingAmount }}</td>
+          <!-- <td><input type="number" class="form-control" [value]="getSelectedRemainingAmount(i)"></td> -->
+          <td>
+            <div style="display: flex; align-items: center">
+              <input type="number" class="form-control" [value]="item.RemainingInput"
+                (input)="calculateTotalSelectedAmounts()" id="remainingAmount_{{ i }}" [disabled]="!item.isSelected"
+                style="flex: 1" [attr.max]="getSelectedRemainingAmount(i)" min="0" />
+            </div>
+          </td>
+          <td>
+            <span style="margin-left: 5px" [hidden]="!item.isSelected">
+              {{ item.NewRemaining }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- <td>
+                    <button class="btn btn-success me-3">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+                </td> -->
+      </tr>
+
+      <tr *ngIf="showtotal">
+        <td></td>
+        <td></td>
+        <td>Total:</td>
+
+        <td>{{ TotalTotalAmount }}</td>
+        <td>{{ TotalPaidAmount }}</td>
+        <td>{{ TotalremainingAmount }}</td>
+        <td>{{ totalAmount }}</td>
+        <td>{{ TotalLeftAmount }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="mt-3">
+    <div style="margin-left: 510px">
+      <!-- <label>Total:-</label>
+      <input
+        type="number"
+        name="TotalAmount"
+        readonly
+        class="form-control"
+        [(ngModel)]="totalAmount"
+      /> -->
+      <button class="btn btn-primary mt-3" id="btn1" (click)="CheckBtn()" [disabled]="isDisabled">
+        PayNow
+      </button>
+      <div *ngIf="showValidationMessage" class="validation-message mt-1">
+        *{{ validationMessage }}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="flex justify-content-center mt-4 ms-2" style="display: inline-block"></div>
+    <div class="card flex justify-content-center gap-2 ms-3" style="display: inline-block"></div>
+    <div class="ms-2" style="display: inline-block"></div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<ng-container *ngFor="let item of UserPermission">
+    <ng-container *ngIf="item.menu == 'PaymentHistory' && item.add == 1">
+        <button class="btn btn-primary m-5" (click)="NavigateToAdd()">
+            New Payment
+        </button>
+    </ng-container>
+</ng-container>
+
+<table class="table m-5">
+    <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Payment Mode</th>
+            <th>ReferenceNo</th>
+            <th>PaymentDate</th>
+            <th>ChequeDate</th>
+            <th>BankName</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of PaymentDetailsArray">
+            <td>
+                {{ item.customerName }}
+            </td>
+            <td>
+                {{ item.paymentMode }}
+            </td>
+            <td>
+                {{ item.referenceNo }}
+            </td>
+            <td>
+                {{ item.paymentDate }}
+            </td>
+            <td>
+                {{ item.chequeDate }}
+            </td>
+            <td>
+                {{ item.bankName }}
+            </td>
+            <td>
+                {{ item.amount }}
+            </td>
+            <td>
+                <ng-container *ngFor="let item2 of UserPermission">
+                    <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        (click)="GotoEditPayment(item.id)"
+                        *ngIf="item2.menu == 'PaymentHistory' && item2.edit == 1">Edit</a>
+                </ng-container>
+
+                <ng-container *ngFor="let item2 of UserPermission">
+                    <a class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        (click)="DeletePayment(item.id)"
+                        *ngIf="item2.menu == 'PaymentHistory' && item2.delete == 1">Delete</a>
+                </ng-container>
+
+                <!-- <ng-container *ngFor="let item2 of UserPermission">  *ngIf="item2.menu=='Item'&&item2.delete==1"-->
+
+                <!-- <a class="btn btn-danger ms-2" (click)="DeleteMenu(item.id)">Delete</a> -->
+                <!-- </ng-container> -->
+            </td>
+        </tr>
+    </tbody>
+</table>

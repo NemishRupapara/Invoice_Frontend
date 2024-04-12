@@ -1,0 +1,138 @@
+<table class="table m-5">
+    <thead>
+        <tr>
+            <th>
+                User's Name
+            </th>
+            <th>
+                Current Role
+            </th>
+            <th>
+                Change Role
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of UserArray">
+            <td>
+                {{item.userName}}
+            </td>
+            <td>
+                {{item.role}}
+            </td>
+
+            <td>
+                <ng-container *ngIf="item.role!=='Admin'">
+
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Role
+                        </a>
+
+                        <ul class="dropdown-menu" *ngFor="let role of RoleArray">
+
+
+
+                            <!-- Assign Function in btn click -->
+                            <li *ngFor="let role of RoleArray">
+                                <ng-container *ngIf="role.role !== item.role && role.id!==1">
+                                    <button class="btn btn-link dropdown-item"
+                                        (click)="GiveRole(item.id,role.id)">{{role.role}}</button>
+                                </ng-container>
+                            </li>
+
+
+                        </ul>
+
+                    </div>
+                </ng-container>
+
+            </td>
+            <td>
+                <ng-container *ngIf="item.role!=='Admin'">
+                    <ng-container *ngFor="let item2 of UserPermission">
+
+                        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            (click)="UpdateItemDetail(item.userName,item.id,item.password)"
+                            *ngIf="item2.menu=='User'&&item2.edit==1">Edit</a>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="item.role!=='Admin'">
+                    <ng-container *ngFor="let item2 of UserPermission">
+
+                        <a class="btn btn-danger ms-2" (click)="DeleteUser(item.id)"
+                            *ngIf="item2.menu=='User'&&item2.delete==1">Delete</a>
+                    </ng-container>
+                </ng-container>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<div class="modal fade" #exampleModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="Customername" class="form-label">UserName:</label>
+                    <input type="text" class="form-control" id="Item_Name" name="Item_Name" [(ngModel)]="UserNames">
+                    <!-- <input type="hidden" id="ItemID" name="ID" /> -->
+                </div>
+                <div class="mb-3">
+                    <label for="Customername" class="form-label">Password:</label>
+                    <input type="text" class="form-control" id="Item_Name" name="Item_Name" [(ngModel)]="PassWord">
+                    <!-- <input type="hidden" id="ItemID" name="ID" /> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="Close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="EditUser()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex  align-items-center ms-5 mb-5">
+    <ng-container *ngFor="let item2 of UserPermission">
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+            *ngIf="item2.menu=='User'&&item2.add==1">Add User</button>
+    </ng-container>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add new Role</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="Customername" class="form-label">UserName:</label>
+                    <input type="text" class="form-control" name="Item_Name" [(ngModel)]="NewUserName">
+                    <input type="hidden" name="ID" />
+                </div>
+                <div class="mb-3">
+                    <label for="Customername" class="form-label">Password:</label>
+                    <input type="text" class="form-control" name="Item_Name" [(ngModel)]="NewPassword">
+                    <input type="hidden" name="ID" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="Close2" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="AddUser()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

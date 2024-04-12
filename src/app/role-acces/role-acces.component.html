@@ -1,0 +1,37 @@
+
+
+<div style="width: 400px;">
+    <label class="ms-4"><b>Select Role:</b></label>
+<select class="form-select form-select-md ms-4" aria-label=".form-select-sm example" [(ngModel)]="S2" (change)="getPermissionsForSelectedRole()">
+    <option value="0" selected>Select Role</option>
+    <ng-container  *ngFor="let role of RoleArray">
+    <option [value]="role.id" *ngIf="role.role!='Admin'">{{role.role}}</option>
+  </ng-container>
+  </select>
+</div>
+
+
+<table class="table ms-4" *ngIf="selectedRole !== 0 && PermissionArray.length > 0">
+    <thead>
+      <tr>
+        <th>Menu</th>
+        <th>Add</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+        <th>Select All</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let permission of PermissionArray">
+        <td>{{ permission.menu }}</td>
+        <td><input type="checkbox" [(ngModel)]="permission.add"></td>
+        <td><input type="checkbox" [(ngModel)]="permission.edit"></td>
+        <td><input type="checkbox" [(ngModel)]="permission.delete"></td>
+        <td><input type="checkbox" [(ngModel)]="permission.view"></td>
+        <td><input type="checkbox" [checked]="isAllSelected(permission)" (change)="selectAll($event, permission)"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-primary ms-4 mt-4" (click)="savePermissions()" [disabled]="selectedRole === 0">Save</button>

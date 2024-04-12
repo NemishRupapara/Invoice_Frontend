@@ -1,0 +1,65 @@
+body {
+    font-size: 15px;
+}
+
+.div1 {
+    width: 90%;
+    /* height: 500pxpx; */
+    border: 1px solid rgb(201, 200, 200);
+    border-radius: 5px;
+    margin: 10px auto;
+    padding: 50px;
+    background-color: rgb(248, 248, 248);
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+.product1 {
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 7px;
+}
+
+.total1 {
+    width: 210px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #5d9fd1;
+    border-radius: 5px;
+}
+
+.total2 {
+    width: 210px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #5d9fd1;
+    border-radius: 5px;
+}
+
+.total3 {
+    margin-left: 100px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #5d9fd1;
+    border-radius: 5px;
+}
+
+h1 {
+    border-left: 8px solid #28a2ff;
+    color: #003965;
+}
+
+/* CSS for validation message */
+.validation-message {
+    background-color: #f8d7da; /* Reddish background color */
+    color: #721c24; /* Text color */
+    padding: 10px; /* Padding around the message */
+    border: 1px solid #f5c6cb; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    margin-top: 10px; /* Margin to separate from other content */
+}

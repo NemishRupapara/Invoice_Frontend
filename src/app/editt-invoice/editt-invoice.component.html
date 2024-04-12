@@ -1,0 +1,270 @@
+
+<div class="container div1">
+
+
+
+    <div>
+               <h1 class="ps-2">Invoice</h1>
+               <div class="row">
+                   <div class="flex flex-wrap col-md-6">
+                       <span class=" mt-5">
+                           <label htmlFor="invoiceno">Invoice No:</label>
+   
+                           <input type="number" class="form-control" name="InvoiceNo"  [(ngModel)]="NewInvoice.Invoice.InvoiceNo"/>
+                           <!-- <small *ngIf="Myform.get('invoiceno').errors?.['required']">Please Enter Invoice No</small> -->
+                       </span>
+                       <span class="p-float-label mt-5">
+                           <label htmlFor="customername">Customer Name:</label>
+   
+   <!--                        
+                           <input type="text" class="form-control" id="custinput" name="CustomerName" [(ngModel)]="NewInvoice.Invoice.CustomerName"/> -->
+                           
+                         
+   
+                           <select class="form-select form-select-md" aria-label=".form-select-sm example" id="CustName" [(ngModel)]="NewInvoice.Invoice.CustomerName">
+                               <!-- <option [ngValue]="null" disabled>Select Customer</option> -->
+                               <option *ngFor="let customer of CustomerArray" [ngValue]="customer?.customername">{{customer?.customername}}</option>
+                             </select>
+                             
+                             
+   
+                           <!-- <select class="form-select form-select-md" aria-label=".form-select-sm example" id="CustName">
+                               <option selected>Select Customer</option>
+                              
+   
+                           </select> -->
+                           <!-- <script>
+                               // Get references to the input and select elements
+                               const inputElement = document.getElementById("custinput");
+                               const selectElement = document.getElementById("CustName");
+   
+                               // Add an event listener to the select element
+                               selectElement.addEventListener("change", function () {
+                                   // Update the value of the input element with the selected option's value
+                                   inputElement.value = selectElement.value;
+                               });
+                           </script> -->
+                       </span>
+                       <span class="p-float-label mt-5">
+                           <label htmlFor="igstno">GST No:</label>
+   
+                           <input type="text" class="form-control" name="GSTNo" [(ngModel)]="NewInvoice.Invoice.GSTNo"/>
+                       </span>
+                   </div>
+   
+                   <!-- This is second div -->
+   
+                   <div class="flex flex-wrap col-md-6">
+                       <div class="">
+   
+                           <div class="flex justify-content-center">
+                               <span>Date:</span>
+                               <input type="date" id="BillDate" name="BillDate" [(ngModel)]="NewInvoice.Invoice.BillDate" (change)="updateDueDate()" class="form-control"  [min]="minDate">
+                             </div>
+                             <div class="mt-1">
+                               <div class="flex justify-content-center">
+                                 <span>Due Date:</span>
+                                 <input type="date" id="DueDate" name="DueDate" [(ngModel)]="NewInvoice.Invoice.DueDate" (change)="calculateDays()" class="form-control"  [min]="minDate">
+                               </div>
+                               <div class="">
+                                 <label>Days</label>
+                                 <input type="number" id="RemainingDays" name="RemainingDays" [(ngModel)]="NewInvoice.Invoice.RemainingDays" (input)="updateDueDate()" class="form-control" [min]="0">
+                               </div>
+                             </div>
+                             
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <input type="hidden" name="Totalitem" value="" />
+   
+   
+           <!-- <button type="submit" style="visibility:hidden;" class="btn btn-primary" id="btn1" >Submit</button> -->
+           <!-- <button (click)="testfunc()"  class="btn btn-primary" id="btn1" >Submit</button> -->
+   
+   
+   
+           <div>
+               <div style="display:inline-flex;" class="mt-5">
+                   <label class="me-3">ItemName :- </label>
+                   <!-- <input type="text" class="form-control rate me-4" style="width: 100px"  [(ngModel)]="SingleItem.Item"> -->
+                   
+                   <select class="form-select form-select-md" aria-label=".form-select-sm example" id="ItemName" [(ngModel)]="SingleItem.Item" style="width: 100px">
+                       <option *ngFor="let Item of ItemArray" [ngValue]="Item?.item_Name">{{Item?.item_Name}}</option>
+                     </select>
+                   <label  class="mx-3">Quantity :-</label>
+   
+                   <input type="number" name="Quantity" class="form-control quantity  me-4" style="width: 100px"  [(ngModel)]="SingleItem.Quantity" (input)="Qtychange()"/>
+                   <label  class="me-3">Rate :-</label>
+   
+                   <input type="number" name="Rate" class="form-control rate  me-4" style="width: 190px"  [(ngModel)]="SingleItem.Rate" (input)="Qtychange()"/>
+                   <label  class="me-3">Amount :-</label>
+   
+                  
+                   <input type="number" name="Amount" class="form-control amount  me-4" style="width: 190px"  [(ngModel)]="SingleItem.Amount"  (input)="AmountChange()"/>
+                 </div>
+                 
+           <button  id="addNew" class="btn btn-primary mb-2" (click)="AddItem()" *ngIf="addFlag==1">Add New</button>
+           <button  id="updateItem" class="btn btn-primary mb-2" (click)="UpdateItem()" *ngIf="updateFlag==1">Update</button></div>
+   
+           <table class="table table-hover mt-5">
+               <!-- id="dataTable" -->
+               <thead>
+               <tr>
+                   <th>Item Name</th>
+                   <th>Quantity</th>
+                   <th>Rate</th>
+                   <th>Amount</th>
+                   <th>Action</th>
+               </tr>
+           </thead>
+           <tbody>
+                 
+                       <tr *ngFor="let item of NewInvoice.Item; let i = index">
+                           <td>
+                             {{item.Item}}
+                               <!-- <select class="form-select form-select-md" aria-label=".form-select-sm example" name="[@j].Item">
+                                   <option selected>Select Item</option>
+                                  
+                                       <option value="@k.ItemName">ItemName</option>
+                               </select> -->
+   
+                           </td>
+   
+   
+   
+   
+                           <td> {{item.Quantity}}</td>
+                           <td>{{item.Rate}}</td>
+                           <td>{{item.Amount}}</td>
+                           <td>
+   
+                             
+                               <button class="btn btn-success me-3" (click)=" Edititem(i)">Edit</button>
+                               <button class="btn btn-danger" (click)="Deleteitem(i)">Delete</button>
+   
+   
+                           </td>
+                       </tr>
+   
+                   </tbody>
+           </table>
+   
+   
+   
+           <!-- <script>
+               $(document).ready(function () {
+                   // 1. Add new row
+                   $("#addNew").click(function (e) {
+                       e.preventDefault();
+                       var $tableBody = $("#dataTable");
+                       var $trLast = $tableBody.find("tr:last");
+                       var $trNew = $trLast.clone();
+   
+                       // Clear input values in the new row
+                       $trNew.find('input').val('');
+   
+                       var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+                       $trNew.find("td:last").html('<a href="#" class="remove btn btn-danger" type="button">Remove</a>');
+                       $.each($trNew.find(':input'), function (i, val) {
+                           // Replaced Name
+                           var oldN = $(this).attr('name');
+                           var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+                           $(this).attr('name', newN);
+   
+                           // If you have another Type then replace with default value
+                           $(this).removeClass("input-validation-error");
+                       });
+                       $trLast.after($trNew);
+   
+                       // Re-assign Validation
+                       var form = $("form")
+                           .removeData("validator")
+                           .removeData("unobtrusiveValidation");
+                       $.validator.unobtrusive.parse(form);
+                       calculateTotals();
+                   });
+   
+                   // 2. Remove
+                   $(document).on("click", "a.remove", function (e) {
+                       e.preventDefault();
+                       $(this).parent().parent().remove();
+                       calculateTotals();
+                   });
+   
+                   // 3. Calculate Amount
+                   $(document).on("input", ".quantity, .rate", function () {
+                       var $row = $(this).closest("tr");
+                       var quantity = $row.find(".quantity").val() || 0;
+                       var rate = $row.find(".rate").val() || 0;
+                       var amount = quantity * rate;
+                       $row.find(".amount").val(amount);
+                       calculateTotals();
+                   });
+   
+   
+                   function calculateTotals() {
+                       var totalQuantity = 0;
+                       var totalAmount = 0;
+                       var totalItems = 0;
+   
+                       // Loop through each row and calculate the total quantity and total amount
+                       $("#dataTable tbody tr").each(function () {
+                           var quantity = parseFloat($(this).find(".quantity").val()) || 0;
+                           var rate = parseFloat($(this).find(".rate").val()) || 0;
+   
+                           totalQuantity += quantity;
+                           totalAmount += quantity * rate;
+                       });
+   
+                       // Update the hidden input fields
+                       $("input[name='TotalQuantity']").val(totalQuantity);
+                       $("input[name='TotalAmount']").val(totalAmount);
+                   }
+   
+                   // Attach the calculateTotals function to input changes and when adding/removing rows
+                   $(document).on("input", ".quantity, .rate", calculateTotals);
+                   $(document).on("click", "#addNew", calculateTotals);
+   
+                   $("#totalItemSpan").text($("#dataTable tbody tr").length);
+                   $("#totalQtySpan").text(totalQuantity);
+                   $("#totalAmountSpan").text(totalAmount.toFixed(2));
+   
+   
+               });
+           </script> -->
+   
+   
+           <div class="mt-3">
+               <!-- <input type="submit" value="submit" class="mt-4" /> -->
+   
+               <div style="margin-left:510px">
+                   <label>Total:-</label>
+                   <input type="number" name="TotalAmount" value="{{NewInvoice.Invoice.TotalAmount}}" readonly class="form-control" />
+               </div>
+           </div>
+   
+           <div>
+               <div class="flex justify-content-center mt-4 ms-2"
+                    style="display: inline-block">
+                   <!-- <button class="btn btn-primary" type="submit" id="sub1">Submit</button> -->
+                   <button (click)="testfunc()"  class="btn btn-primary" id="btn1" [disabled]="paidAmount>NewInvoice.Invoice.TotalAmount">Submit</button>
+                    <div class="validation-message mt-1" *ngIf="paidAmount>NewInvoice.Invoice.TotalAmount">*Total Amount must be greater than {{paidAmount}}</div>
+    
+               </div>
+               <div class="card flex justify-content-center gap-2 ms-3"
+                    style="display: inline-block">
+                   <!-- <p-button (click)="confirm2()" icon="pi pi-times" label="Delete" class="p-button-danger"></p-button> -->
+               </div>
+               <div class=" ms-2" style="display: inline-block">
+                  
+   
+               </div>
+           </div>
+   
+   
+   
+   
+   
+      
+   
