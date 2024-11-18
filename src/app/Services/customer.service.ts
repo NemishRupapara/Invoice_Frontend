@@ -69,6 +69,17 @@ SelectedRole:number;
         })
       );
   }
+  GetSampleList(): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080/api/getPendingWithdrawalRequest/wallet101112`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error:', error);
+
+          // Rethrow the error to propagate it to the subscriber
+          return throwError(error);
+        })
+      );
+  }
   GetPAymentModeList(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/Invoice/GetPaymentModeList`)
       .pipe(

@@ -18,6 +18,8 @@ import { PaymentModeComponent } from './payment-mode/payment-mode.component';
 import { MenuMethodComponent } from './menu-method/menu-method.component';
 import { PaymentHistoryComponent } from './payment-history/payment-history.component';
 import { EditPaymentComponent } from './edit-payment/edit-payment.component';
+import { AgGridComponent } from './ag-grid/ag-grid.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
 {path:'DisplayInvoiceList',component:DisplayListComponent,canActivate:[authGuard]},
@@ -43,6 +45,9 @@ const routes: Routes = [
 {path:'Payment/:InvoiceId',component:PaymentComponent,canActivate:[authGuard]},
 
  {path:'VerifyUser',component:NavbarComponent,canActivate:[authGuard]},
+ {path:'ag-grid',component:AgGridComponent},
+ {path:'chat',component:ChatComponent},
+
     
  {path:'',redirectTo:"Login",pathMatch:"full"},
 

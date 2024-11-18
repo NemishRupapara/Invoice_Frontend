@@ -83,6 +83,14 @@
                     </li>
                 </ng-container>
 
+                <li class="nav-item">
+                    <button class="nav-link active" [routerLink]="['/ag-grid']">AG-Grid</button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="nav-link active" [routerLink]="['/chat']">Chat</button>
+                </li>
+
                 <li class="nav-item" *ngIf="IsLoggedIn">
                     <button class="nav-link active" (click)="Logout()">Logout</button>
                 </li>

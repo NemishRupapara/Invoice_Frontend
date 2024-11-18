@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import "@ag-grid-community/styles/ag-grid.css";
+@import "@ag-grid-community/styles/ag-theme-quartz.css";
+@import "@ag-grid-community/styles/ag-theme-balham.css";
+@import "@ag-grid-community/styles/ag-theme-material.css";
+@import "@ag-grid-community/styles/ag-theme-alpine.css";
+
+.ag-theme-quartz {
+    /* Changes the color of the grid text */
+      --ag-foreground-color: rgb(0, 30, 73);
+      /* Changes the color of the grid background */
+      --ag-background-color: rgb(246, 249, 252);
+      /* Changes the header color of the top row */
+      --ag-header-background-color: rgb(234, 243, 255);
+      /* Changes the hover color of the row*/
+      --ag-row-hover-color: rgb(229, 235, 255);
+}

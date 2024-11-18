@@ -112,7 +112,13 @@ RemoveToken(){
   localStorage.removeItem("UserID");
   localStorage.removeItem("RoleID");
 }
-
+getcurrentuserdetails(){
+  const token=localStorage.getItem("access_token");
+  // const UserInfo=token!=null?this.jwtHelperservice.decodeToken(token):null;
+  // console.log(token!=null?this.jwtHelperservice.decodeToken(token):null);
+  this.Userdetails=token!=null?this.jwtHelperservice.decodeToken(token):null;
+  return this.Userdetails;
+}
 Logout(){
   this.RemoveToken();
   this.setReferesGalleryGrid(true);

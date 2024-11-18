@@ -27,6 +27,7 @@ export class RoleMethodComponent  implements OnInit{
   ngOnInit() {
 
     this.GetPermission();
+    this.GetSampleList();
 
   }
 
@@ -53,6 +54,20 @@ export class RoleMethodComponent  implements OnInit{
       }
     );
   }
+
+  GetSampleList(){
+    this.Itemservice.GetSampleList().subscribe(
+      (data: any) => {
+       
+        console.log(data);
+
+      },
+      (error) => {
+        console.error('Error fetching customer list:', error);
+      }
+    );
+  }
+
   UpdateItemDetail(RoleName: string, id: number) {
     this.RoleNames = RoleName;
     this.RoleID = id;

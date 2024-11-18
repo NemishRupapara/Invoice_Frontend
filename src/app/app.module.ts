@@ -24,8 +24,13 @@ import { MenuMethodComponent } from './menu-method/menu-method.component';
 import { PaymentHistoryComponent } from './payment-history/payment-history.component';
 import { EditPaymentComponent } from './edit-payment/edit-payment.component';
 import { AuthInterceptorServiceTsService } from './Services/auth-interceptor.service.ts.service';
-
-
+import { AgGridComponent } from './ag-grid/ag-grid.component';
+import { AgGridAngular } from "@ag-grid-community/angular";
+import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+import { ChatComponent } from './chat/chat.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { environment } from './environment/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +51,8 @@ import { AuthInterceptorServiceTsService } from './Services/auth-interceptor.ser
     MenuMethodComponent,
     PaymentHistoryComponent,
     EditPaymentComponent,
+    AgGridComponent,
+    ChatComponent,
     
   ],
   imports: [
@@ -53,8 +60,11 @@ import { AuthInterceptorServiceTsService } from './Services/auth-interceptor.ser
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    AgGridAngular,
+    AngularFireModule.initializeApp(environment.firebaseConfig), // Initialize Firebase
+    AngularFireDatabaseModule // Firebas
+    
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorServiceTsService,multi:true}],
   bootstrap: [AppComponent]

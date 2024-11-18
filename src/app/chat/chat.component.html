@@ -1,0 +1,93 @@
+   <!-- <div class="chat-app">
+    <div class="user-list">
+      <h3>Users</h3>
+      <ul>
+        <li *ngFor="let user of users" (click)="selectUser(user)">
+          {{ user.userName }}
+        </li>
+      </ul>
+    </div>
+    <div class="chat-window" *ngIf="selectedUser">
+      <h3>Chat with {{ selectedUser.userName }}</h3>
+      <div class="messages">
+        <div *ngFor="let message of messages">
+          <div [ngClass]="message.senderId === currentUser.UserID ? 'message-right1' : 'message-left1'">
+            <div class="message" [ngClass]="message.senderId === currentUser.UserID ? 'message-right' : 'message-left'">
+              {{ message.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="new-message">
+        <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type your message here...">
+        <button (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+   -->
+
+
+
+
+
+   <!-- <div class="chat-app">
+    <div class="user-list">
+      <h3>Users</h3>
+      <ul>
+        <li *ngFor="let user of users" (click)="selectUser(user)">
+          {{ user.userName }}
+          <span *ngIf="newMessageCount[user.id]" class="new-message-indicator">
+            ({{ newMessageCount[user.id] }})
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="chat-window" *ngIf="selectedUser">
+      <h3>Chat with {{ selectedUser.userName }}</h3>
+      <div class="messages">
+        <div *ngFor="let message of messages">
+          <div [ngClass]="message.senderId === currentUser.UserID ? 'message-right1' : 'message-left1'">
+            <div class="message" [ngClass]="message.senderId === currentUser.UserID ? 'message-right' : 'message-left'">
+              {{ message.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="new-message">
+        <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type your message here...">
+        <button (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+   -->
+
+   
+   <div class="chat-app">
+    <div class="user-list">
+      <h3>Users</h3>
+      <ul>
+        <li *ngFor="let user of users" (click)="selectUser(user)">
+          {{ user.userName }}
+          <span *ngIf="getMessageCountForUser(user) > 0" class="new-message-indicator">
+            ({{ getMessageCountForUser(user) }})
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="chat-window" *ngIf="selectedUser">
+      <h3>Chat with {{ selectedUser.userName }}</h3>
+      <div class="messages">
+        <div *ngFor="let message of messages">
+          <div [ngClass]="message.senderId === currentUser.UserID ? 'message-right1' : 'message-left1'">
+            <div class="message" [ngClass]="message.senderId === currentUser.UserID ? 'message-right' : 'message-left'">
+              {{ message.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="new-message">
+        <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type your message here...">
+        <button (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>

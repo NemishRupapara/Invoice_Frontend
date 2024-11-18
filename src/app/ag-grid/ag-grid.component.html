@@ -1,0 +1,14 @@
+<button class="btn btn-primary my-3 ms-2" (click)="onBtExport()" 
+>Export to Excel</button>
+<ag-grid-angular style="height: calc(80vh);width: 100%;" class="ag-theme-quartz"
+ [rowData]="InvoiceArray" 
+(gridReady)="onGridReady($event)"
+[columnDefs]="colDefs"
+[pagination]="true"
+[rowGroupPanelShow]="rowGroupPanelShow"
+[autoGroupColumnDef]="autoGroupColumnDef"
+[paginationPageSizeSelector]="[5,10,20,50,100]"/>
+
+
+
+<!-- [rowGroupPanelShow]="rowGroupPanelShow" -->
